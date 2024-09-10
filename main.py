@@ -1,3 +1,5 @@
+import tkinter as tk
+from tkinter import messagebox
 import requests
 
 def get_card_info(card_name):
@@ -20,5 +22,21 @@ def get_card_info(card_name):
     else:
         print(f"Card not found or API error (Status code: {response.status_code})")
 
-card_name_input = input("Enter the card name: ")
-get_card_info(card_name_input)
+def search_card():
+    card_name = card_entry.get()
+    if card_name:
+        get_card_info(card_name)
+    else:
+        messagebox.showwarning("Input Error", "Please enter a card name.")
+
+root = tk.Tk()
+root.title("Scryfall Card Search")
+root.geometry("300.150")
+
+card_label = tk.Label(root, width=30)
+card_entry.pack(pady=5)
+
+search_button = tk.Button(root, text="Search", command=search_card)
+search_button.pack(pady=10)
+
+root.mainloop()
